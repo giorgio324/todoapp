@@ -12,11 +12,12 @@
   /* dark theme */
   --VeryDarkBlue: hsl(235, 21%, 11%);
   --VeryDarkDesaturatedBlue: hsl(235, 24%, 19%);
-  --LightGrayishBlue: hsl(234, 39%, 85%);
-  --LightGrayishBlueHover: hsl(236, 33%, 92%);
-  --DarkGrayishBlue: hsl(234, 11%, 52%);
-  --VeryDarkGrayishBlue: hsl(233, 14%, 35%);
-  --VeryDarkGrayishBlue: hsl(237, 14%, 26%);
+  --LightGrayishBlueDark: hsl(234, 39%, 85%);
+  --LightGrayishBlueDarkHover: hsl(236, 33%, 92%);
+  --DarkGrayishBlueDark: hsl(234, 11%, 52%);
+  --VeryDarkGrayishBlueDark: hsl(233, 14%, 35%);
+  --VeryDarkGrayishBlueDark2: hsl(237, 14%, 26%);
+  --radius: 5px
 }
 
 * {
@@ -25,17 +26,102 @@
   box-sizing: border-box;
 }
 
+img {
+  width: 100%;
+  display: block;
+}
+
 body {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
-  min-height: 100vh;
-  background: var(--CheckBackground);
+  background: var(--LightGrayishBlue);
+  font-size: 18px;
+}
+
+/* start */
+.todo-container {
+  padding: 0 2rem;
+  margin-top: -150px;
+}
+
+.lbg-img {
+  height: 25vh;
+  object-fit: cover;
+}
+
+.title-container {
+  margin-bottom: 1.5rem;
+  letter-spacing: 8px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.title-container h1 {
+  color: white;
+}
+
+button {
+  border: none;
+  font-family: 'Josefin Sans', sans-serif;
+  background: transparent;
+  cursor: pointer;
+}
+
+.form {
+  background: var(--VeryLightGray);
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 99;
+}
+
+.form-input {
+  border: none;
+  padding: 1rem;
+  width: 95%;
+  outline: none;
+  background: none;
+}
+
+.submit-btn {
+  background: var(--DarkGrayishBlueDark);
+  align-self: stretch;
+  padding: 1rem;
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  border: 1px solid black;
+}
+
+.x {
+  cursor: pointer;
 }
 
 .item {
   display: flex;
   justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--DarkGrayishBlue);
+  position: relative;
+  z-index: 999;
+}
+
+.todo-items-container {
+  position: relative;
+  margin-top: 1rem;
+  border-radius: var(--radius);
+  background: var(--VeryLightGray);
+}
+
+.todo-items-container-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.clear-completed {}
+
+.line {
+  text-decoration: line-through;
 }
