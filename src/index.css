@@ -34,7 +34,7 @@ img {
 body {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
-  background: var(--LightGrayishBlue);
+  background: var(--VeryLightGrayishBlue);
   font-size: 17px;
 }
 
@@ -114,6 +114,13 @@ button {
   border-bottom: 1px solid var(--LightGrayishBlue);
   position: relative;
   z-index: 999;
+  word-break: normal;
+  font-size: 14px;
+}
+
+.item p {
+  width: 80%;
+  text-align: center;
 }
 
 .todo-items-container {

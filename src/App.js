@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import sunImage from './images/icon-sun.svg';
 import cross from './images/icon-cross.svg';
@@ -6,19 +6,32 @@ import moonImage from './images/icon-moon.svg';
 import lightHeader from './images/bg-desktop-light.jpg';
 function App() {
   const [input, setInput] = useState('');
-  const [list, setList] = useState([
-    {
-      id: Math.random(),
-      completed: false,
-      todo: 'CLEAR ME',
-    },
-    {
-      id: Math.random(),
-      completed: false,
-      todo: 'CLEAR ME 2',
-    },
-  ]);
-  const nodeRef = useRef(null);
+  // gets items from localstorage if there are none and its new user it gets default values
+  const [list, setList] = useState(() => {
+    const localData = localStorage.getItem('todos');
+    return localData
+      ? JSON.parse(localData)
+      : [
+          {
+            id: Math.random(),
+            completed: false,
+            todo: 'I am going to track the tasks that you have to do',
+          },
+          {
+            id: Math.random(),
+            completed: false,
+            todo: "So you won't forget it",
+          },
+        ];
+  });
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  // everytime list item changes it saves it in localstorage
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(list));
+  }, [list]);
+
   const addItem = (e, todo) => {
     e.preventDefault();
     if (!input) return;
@@ -67,7 +80,11 @@ function App() {
           <div className='title-container'>
             <h1>TODO</h1>
             <button className='theme-changer-button'>
-              <img src={moonImage} alt='' />
+              {darkMode ? (
+                <img src={sunImage} alt='' />
+              ) : (
+                <img src={moonImage} alt='' />
+              )}
             </button>
           </div>
           <form className='form'>
