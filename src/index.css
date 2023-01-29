@@ -35,13 +35,16 @@ body {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
   background: var(--LightGrayishBlue);
-  font-size: 18px;
+  font-size: 17px;
 }
 
 /* start */
 .todo-container {
   padding: 0 2rem;
   margin-top: -150px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .lbg-img {
@@ -86,12 +89,17 @@ button {
 }
 
 .submit-btn {
-  background: var(--DarkGrayishBlueDark);
+  background: var(--CheckBackground);
   align-self: stretch;
   padding: 1rem;
   border-top-right-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
-  border: 1px solid black;
+  border: 1px solid var(--VeryDarkGrayishBlue);
+  transition: 0.3s all linear;
+}
+
+.submit-btn:hover {
+  background: var(--CheckBackground);
 }
 
 .x {
@@ -101,6 +109,7 @@ button {
 .item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   border-bottom: 1px solid var(--LightGrayishBlue);
   position: relative;
@@ -118,12 +127,14 @@ button {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+  font-size: 15px;
   color: var(--DarkGrayishBlue);
 }
 
 .clear-completed {
   color: var(--DarkGrayishBlue);
-  font-size: 16px;
+  font-size: 15px;
+  transition: 0.3s linear all;
 }
 
 .clear-completed:hover {
@@ -164,4 +175,23 @@ input[type="checkbox"]:checked:before {
   border-radius: 50%;
   background: url(./images/icon-check.svg) no-repeat center;
   text-align: center;
+}
+
+/* remove transition */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
 }

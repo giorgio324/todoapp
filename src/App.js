@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import sunImage from './images/icon-sun.svg';
 import cross from './images/icon-cross.svg';
@@ -18,7 +18,7 @@ function App() {
       todo: 'CLEAR ME 2',
     },
   ]);
-
+  const nodeRef = useRef(null);
   const addItem = (e, todo) => {
     e.preventDefault();
     if (!input) return;
@@ -87,17 +87,25 @@ function App() {
           </form>
         </main>
         <div className='todo-items-container'>
-          {list.map((todo) => {
-            return (
-              <div className='item' key={todo.id}>
-                <input type='checkbox' onClick={() => completeTask(todo.id)} />
-                <p className={todo.completed ? 'line' : ''}>{todo.todo}</p>
-                <button className='x' onClick={() => removeItem(todo.id)}>
-                  <img src={cross} alt='' />
-                </button>
-              </div>
-            );
-          })}
+          <TransitionGroup>
+            {list.map((todo) => {
+              return (
+                <CSSTransition key={todo.id} timeout={400} classNames='fade'>
+                  <div className='item' key={todo.id}>
+                    <input
+                      type='checkbox'
+                      onClick={() => completeTask(todo.id)}
+                    />
+                    <p className={todo.completed ? 'line' : ''}>{todo.todo}</p>
+                    <button className='x' onClick={() => removeItem(todo.id)}>
+                      <img src={cross} alt='' />
+                    </button>
+                  </div>
+                </CSSTransition>
+              );
+            })}
+          </TransitionGroup>
+
           <div className='todo-items-container-footer'>
             <p>{checkedAmount} items left</p>
             <button onClick={clearCompleted} className='clear-completed'>
