@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import sunImage from './images/icon-sun.svg';
 import cross from './images/icon-cross.svg';
 import moonImage from './images/icon-moon.svg';
@@ -31,21 +32,31 @@ function App() {
     setList([...list, newTodo]);
     // clear field
     setInput('');
-    console.log(list);
   };
+
+  // finds which checkbox you clicked with id and flips its completed value it also causes rerender so it updates the values
   const completeTask = (id) => {
+    const reRenderTrigger = [...list];
     const findTodo = list.find((todo) => todo.id === id);
     findTodo.completed = !findTodo.completed;
-    console.log(findTodo);
+    setList(reRenderTrigger);
   };
+
+  // finds which X you clicked with id and loops through all list values when it finds a match of id it just removes it and changes list with new values
   const removeItem = (id) => {
     const newtodos = list.filter((todo) => todo.id !== id);
     setList(newtodos);
   };
+
+  // loops through list and checks which of them have completed values false if it finds a match it returns those values and keeps them in list
   const clearCompleted = () => {
     const newtodos = list.filter((todo) => todo.completed === false);
     setList(newtodos);
   };
+
+  // tracks checked item amount by filtering it
+  const checkedAmount = list.filter((todo) => todo.completed === false).length;
+
   return (
     <div className='app-container'>
       <div className='bg-container'>
@@ -80,7 +91,7 @@ function App() {
             return (
               <div className='item' key={todo.id}>
                 <input type='checkbox' onClick={() => completeTask(todo.id)} />
-                <p>{todo.todo}</p>
+                <p className={todo.completed ? 'line' : ''}>{todo.todo}</p>
                 <button className='x' onClick={() => removeItem(todo.id)}>
                   <img src={cross} alt='' />
                 </button>
@@ -88,7 +99,7 @@ function App() {
             );
           })}
           <div className='todo-items-container-footer'>
-            <p>{list.length} items left</p>
+            <p>{checkedAmount} items left</p>
             <button onClick={clearCompleted} className='clear-completed'>
               clear completed
             </button>

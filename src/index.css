@@ -133,6 +133,8 @@ button {
 
 .line {
   text-decoration: line-through;
+  color: var(--LightGrayishBlue);
+  transition: 0.4s linear all;
 }
 
 
