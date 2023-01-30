@@ -4,6 +4,7 @@ import sunImage from './images/icon-sun.svg';
 import cross from './images/icon-cross.svg';
 import moonImage from './images/icon-moon.svg';
 import lightHeader from './images/bg-desktop-light.jpg';
+import darkHeader from './images/bg-desktop-dark.jpg';
 function App() {
   const [input, setInput] = useState('');
   // gets items from localstorage if there are none and its new user it gets default values
@@ -24,14 +25,30 @@ function App() {
           },
         ];
   });
+  const [darkMode, setDarkMode] = useState(() => {
+    const localData = localStorage.getItem('theme');
+    return localData ? JSON.parse(localData) : false;
+  });
 
-  const [darkMode, setDarkMode] = useState(false);
-
-  // everytime list item changes it saves it in localstorage
+  // everytime list item changes it is stored in a localstorage
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(list));
   }, [list]);
-
+  // everytime darkMode changes value it is stored in a localstorage
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(darkMode));
+  }, [darkMode]);
+  // fixes a bug when you refresh body style is not imedietly applyed so when app loads it sets it this only happends once
+  useEffect(() => {
+    const getStartingTheme = localStorage.getItem('theme');
+    const startTheme = JSON.parse(getStartingTheme);
+    if (startTheme) {
+      document.body.className = 'dark';
+    }
+    if (!startTheme) {
+      document.body.className = 'light';
+    }
+  }, []);
   const addItem = (e, todo) => {
     e.preventDefault();
     if (!input) return;
@@ -70,16 +87,31 @@ function App() {
   // tracks checked item amount by filtering it
   const checkedAmount = list.filter((todo) => todo.completed === false).length;
 
+  const changeTheme = () => {
+    if (!darkMode) {
+      document.body.className = 'dark';
+      setDarkMode(!darkMode);
+    }
+    if (darkMode) {
+      document.body.className = 'light';
+      setDarkMode(!darkMode);
+    }
+  };
+
   return (
     <div className='app-container'>
       <div className='bg-container'>
-        <img src={lightHeader} alt='' className='lbg-img' />
+        {darkMode ? (
+          <img src={darkHeader} alt='' className='dbg-img' />
+        ) : (
+          <img src={lightHeader} alt='' className='lbg-img' />
+        )}
       </div>
       <div className='todo-container'>
         <main>
           <div className='title-container'>
             <h1>TODO</h1>
-            <button className='theme-changer-button'>
+            <button className='theme-changer-button' onClick={changeTheme}>
               {darkMode ? (
                 <img src={sunImage} alt='' />
               ) : (
@@ -87,15 +119,16 @@ function App() {
               )}
             </button>
           </div>
-          <form className='form'>
+          <form className={darkMode ? 'form form-dark' : 'form'}>
             <input
               className='form-input'
               type='text'
               value={input}
+              placeholder='create a new todo'
               onChange={(e) => setInput(e.target.value)}
             />
             <button
-              className='submit-btn'
+              className={darkMode ? 'submit-btn submit-btn-dark' : 'submit-btn'}
               type='submit'
               onClick={(e) => addItem(e, input)}
             >
@@ -103,7 +136,13 @@ function App() {
             </button>
           </form>
         </main>
-        <div className='todo-items-container'>
+        <div
+          className={
+            darkMode
+              ? 'todo-items-container todo-items-container-dark'
+              : 'todo-items-container'
+          }
+        >
           <TransitionGroup>
             {list.map((todo) => {
               return (
