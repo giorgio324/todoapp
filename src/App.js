@@ -10,6 +10,7 @@ function App() {
   // gets items from localstorage if there are none and its new user it gets default values
   const [list, setList] = useState(() => {
     const localData = localStorage.getItem('todos');
+    console.log(localData);
     return localData
       ? JSON.parse(localData)
       : [
@@ -150,7 +151,8 @@ function App() {
                   <div className='item' key={todo.id}>
                     <input
                       type='checkbox'
-                      onClick={() => completeTask(todo.id)}
+                      checked={todo.completed}
+                      onChange={() => completeTask(todo.id)}
                     />
                     <p className={todo.completed ? 'line' : ''}>{todo.todo}</p>
                     <button className='x' onClick={() => removeItem(todo.id)}>
