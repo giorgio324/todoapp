@@ -176,7 +176,13 @@ function App() {
 
           <div className='todo-items-container-footer'>
             <p>{checkedAmount} items left</p>
-            <div className='filter-btn-container'>
+            <div
+              className={
+                darkMode
+                  ? 'filter-btn-container filter-btn-container-dark'
+                  : 'filter-btn-container'
+              }
+            >
               <button
                 className={filterBtn === 'all' ? 'active' : ''}
                 onClick={(e) => filterTodo(e)}

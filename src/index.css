@@ -255,14 +255,20 @@ input[type="checkbox"]:checked:before {
   width: 100%;
   padding: 1rem;
   transform: translate(-16px, 150%);
-  background: var(--VeryDarkDesaturatedBlue);
+  background: var(--VeryLightGray);
+  transition: var(--transition);
   border-radius: var(--radius);
   align-items: center;
+}
+
+.filter-btn-container-dark {
+  background: var(--VeryDarkDesaturatedBlue);
 }
 
 .filter-btn-container button {
   color: var(--LightGrayishBlue);
   transition: var(--transition);
+  font-weight: bold;
 }
 
 /* if button is active */
