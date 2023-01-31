@@ -30,7 +30,7 @@ function App() {
     const localData = localStorage.getItem('theme');
     return localData ? JSON.parse(localData) : false;
   });
-
+  const [filterBtn, setFilterBtn] = useState('all');
   // everytime list item changes it is stored in a localstorage
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(list));
@@ -98,7 +98,17 @@ function App() {
       setDarkMode(!darkMode);
     }
   };
-
+  const filterTodo = (e) => {
+    const targetBtn = e.target.textContent;
+    setFilterBtn(targetBtn.toLowerCase());
+  };
+  // this filteres list based on filterBtn value
+  const filteredTodos =
+    filterBtn === 'all'
+      ? list
+      : filterBtn === 'active'
+      ? list.filter((todo) => !todo.completed)
+      : list.filter((todo) => todo.completed);
   return (
     <div className='app-container'>
       <div className='bg-container'>
@@ -145,7 +155,7 @@ function App() {
           }
         >
           <TransitionGroup>
-            {list.map((todo) => {
+            {filteredTodos.map((todo) => {
               return (
                 <CSSTransition key={todo.id} timeout={400} classNames='fade'>
                   <div className='item' key={todo.id}>
@@ -166,6 +176,26 @@ function App() {
 
           <div className='todo-items-container-footer'>
             <p>{checkedAmount} items left</p>
+            <div className='filter-btn-container'>
+              <button
+                className={filterBtn === 'all' ? 'active' : ''}
+                onClick={(e) => filterTodo(e)}
+              >
+                All
+              </button>
+              <button
+                className={filterBtn === 'active' ? 'active' : ''}
+                onClick={(e) => filterTodo(e)}
+              >
+                Active
+              </button>
+              <button
+                className={filterBtn === 'completed' ? 'active' : ''}
+                onClick={(e) => filterTodo(e)}
+              >
+                Completed
+              </button>
+            </div>
             <button onClick={clearCompleted} className='clear-completed'>
               clear completed
             </button>
