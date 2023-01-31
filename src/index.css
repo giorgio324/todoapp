@@ -250,10 +250,14 @@ input[type="checkbox"]:checked:before {
 
 .filter-btn-container {
   display: flex;
-  justify-content: space-between;
-  width: 33.33%;
+  position: absolute;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 1rem;
+  transform: translate(-16px, 150%);
+  background: var(--VeryDarkDesaturatedBlue);
+  border-radius: var(--radius);
   align-items: center;
-  margin-left: 22px;
 }
 
 .filter-btn-container button {
@@ -285,7 +289,16 @@ input[type="checkbox"]:checked:before {
   }
 
   .filter-btn-container {
+    display: flex;
+    position: unset;
+    justify-content: space-between;
+    width: 33.3%;
+    padding: 0;
+    transform: none;
+    align-items: center;
+    background: transparent;
     font-size: 17px;
+    margin-left: 3.5rem;
   }
 
   .todo-items-container-footer {
@@ -310,16 +323,12 @@ input[type="checkbox"]:checked:before {
 
   }
 
-  .filter-btn-container {
-    font-size: 19px;
-  }
-
   ::placeholder {
     font-size: 19px;
   }
 
   .clear-completed {
-    font-size: 19px;
+    font-size: 18px;
   }
 
   .todo-items-container-footer {
