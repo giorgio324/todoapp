@@ -60,9 +60,7 @@ body {
 
 .lbg-img,
 .dbg-img {
-  height: 25vh;
-  object-fit: cover;
-  transition: var(--transition);
+  display: none;
 }
 
 .title-container {
@@ -103,6 +101,7 @@ button {
 }
 
 .form-input {
+  font-size: 16px;
   border: none;
   padding: 1rem;
   width: 95%;
@@ -286,6 +285,10 @@ input[type="checkbox"]:checked:before {
 
   }
 
+  .form-input {
+    font-size: 17px;
+  }
+
   ::placeholder {
     font-size: 17px;
   }
@@ -319,6 +322,18 @@ input[type="checkbox"]:checked:before {
     font-size: 19px;
   }
 
+  .lbg-img,
+  .dbg-img {
+    display: block;
+    height: 25vh;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+
+  .lbgm-img,
+  .dbgm-img {
+    display: none;
+  }
 }
 
 @media screen and (min-width:900px) {
@@ -327,6 +342,10 @@ input[type="checkbox"]:checked:before {
 
     max-width: 700px;
 
+  }
+
+  .form-input {
+    font-size: 18px;
   }
 
   ::placeholder {

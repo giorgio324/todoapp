@@ -5,6 +5,8 @@ import cross from './images/icon-cross.svg';
 import moonImage from './images/icon-moon.svg';
 import lightHeader from './images/bg-desktop-light.jpg';
 import darkHeader from './images/bg-desktop-dark.jpg';
+import lightHeaderMobile from './images/bg-mobile-light.jpg';
+import darkHeaderMobile from './images/bg-mobile-dark.jpg';
 function App() {
   const [input, setInput] = useState('');
   // gets items from localstorage if there are none and its new user it gets default values
@@ -113,9 +115,15 @@ function App() {
     <div className='app-container'>
       <div className='bg-container'>
         {darkMode ? (
-          <img src={darkHeader} alt='' className='dbg-img' />
+          <div className=''>
+            <img src={darkHeaderMobile} alt='' className='dbgm-img' />
+            <img src={darkHeader} alt='' className='dbg-img' />
+          </div>
         ) : (
-          <img src={lightHeader} alt='' className='lbg-img' />
+          <div className=''>
+            <img src={lightHeaderMobile} alt='' className='lbgm-img' />
+            <img src={lightHeader} alt='' className='lbg-img' />
+          </div>
         )}
       </div>
       <div className='todo-container'>
