@@ -12,7 +12,6 @@ function App() {
   // gets items from localstorage if there are none and its new user it gets default values
   const [list, setList] = useState(() => {
     const localData = localStorage.getItem('todos');
-    console.log(localData);
     return localData
       ? JSON.parse(localData)
       : [
